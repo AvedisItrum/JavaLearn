@@ -418,9 +418,20 @@ public class CodeWars {
         double pow = Math.pow(Math.sqrt(sq) + 1, 2);
         return (pow % 1 != 0) ? -1 : (long) pow;
     }
-    // 40/74
+
+    public static boolean isNarcissistic(int number) {
+        int pow = Integer.toString(number).length();
+        int bufNum = number;
+        int sum = 0;
+        while (bufNum != 0) {
+            sum += Math.pow(bufNum % 10, pow);
+            bufNum /= 10;
+        }
+        return sum == number;
+    }
+    // 41/74
 
     public static void main(String[] str) {
-
+        isNarcissistic(153);
     }
 }
