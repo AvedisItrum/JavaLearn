@@ -442,10 +442,19 @@ public class CodeWars {
     }
 
     public static String printerError(String s) {
-        return s.replaceAll("[a-m]","").length()+"/"+s.length();
+        return s.replaceAll("[a-m]", "").length() + "/" + s.length();
     }
 
-    // 43/74
+    public static String[] solution(String s) {
+        StringBuilder sB = new StringBuilder(s);
+        if (sB.length() % 2 == 1)
+            sB.append("_");
+        String[] strs = new String[sB.length() / 2];
+        for (int i = 0; i < sB.length(); i += 2)
+            strs[i / 2] = "" + sB.charAt(i) +  sB.charAt(i + 1);
+        return strs;
+    }
+    // 44/74
 
     public static void main(String[] str) {
 
