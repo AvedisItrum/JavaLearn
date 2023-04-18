@@ -429,9 +429,20 @@ public class CodeWars {
         }
         return sum == number;
     }
-    // 41/74
+
+    public double[] tribonacci(double[] s, int n) {
+        if (s.length < 3)
+            return new double[0];
+        double[] rS = new double[n];
+        System.arraycopy(s, 0, rS, 0, Math.min(n, 3));
+        for (int i = 3; i < n; i++)
+            rS[i] = rS[i - 1] + rS[i - 2] + rS[i - 3];
+
+        return rS;
+    }
+    // 42/74
 
     public static void main(String[] str) {
-        isNarcissistic(153);
+
     }
 }
