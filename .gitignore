@@ -1,0 +1,10 @@
+/gitssh
+/gitssh.pub
+/txts
+/out
+/out/production/Learn
+/out/production/Learn/*
+/.idea
+/.idea/
+/.idea/*
+/Learn.iml
