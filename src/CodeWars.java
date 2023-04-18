@@ -440,7 +440,12 @@ public class CodeWars {
 
         return rS;
     }
-    // 42/74
+
+    public static String printerError(String s) {
+        return s.replaceAll("[a-m]","").length()+"/"+s.length();
+    }
+
+    // 43/74
 
     public static void main(String[] str) {
 
