@@ -16,6 +16,8 @@ public class Tests {
         sB.Undo();//1234567891
         sB.Undo();//123456789
         sB.ReUndo();//1234567891
+        sB.Undo();//123456789
+        sB.ReUndo();//1234567891
         sB.ReUndo();//1234567891123
         sB.Remove(3);//1234567891
         sB.Remove(1);//123456789
