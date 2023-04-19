@@ -482,7 +482,13 @@ public class CodeWars {
                 }
         return val != arr[2] ? val:arr[1];
     }
-    // 46/74
+
+    public static int countPassengers(ArrayList<int[]> stops) {
+       return stops.stream().mapToInt(x->(x[0]-x[1])).sum();
+    }
+
+
+    // 48/74
 
     public static void main(String[] str) {
     }
