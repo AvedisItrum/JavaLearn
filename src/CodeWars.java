@@ -469,11 +469,20 @@ public class CodeWars {
         int sum = 0;
         int s = binary.size();
         for (int i = 0; i < s; i++)
-            sum += Math.pow(2,i) * binary.get(s-i-1);
+            sum += Math.pow(2, i) * binary.get(s - i - 1);
         return sum;
     }
 
-    // 45/74
+    public static double findUniq(double arr[]) {
+        double val = arr[0];
+        if (val == arr[1])
+            for (double v : arr)
+                if (val != v) {
+                    return val;
+                }
+        return val != arr[2] ? val:arr[1];
+    }
+    // 46/74
 
     public static void main(String[] str) {
     }
