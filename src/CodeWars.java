@@ -499,13 +499,21 @@ public class CodeWars {
         return -1;
     }
 
-    public static String oddOrEven (int[] array) {
-        return Arrays.stream(array).sum()%2==0?"even":"odd";
+    public static String oddOrEven(int[] array) {
+        return Arrays.stream(array).sum() % 2 == 0 ? "even" : "odd";
     }
     //50
 
-    // 49/74
+    public static String reverseWords(String original) {
+        String str = Arrays.stream(original.split(" "))
+                .map(x -> new StringBuilder(x).reverse().toString())
+                .collect(Collectors.joining(" "));
+        return str.length() == 0 ? original : str;
+    }
+
+    // 51/74
 
     public static void main(String[] str) {
+        reverseWords("    ");
     }
 }
