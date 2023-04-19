@@ -57,8 +57,8 @@ public class CodeWars {
         str.insert(0, '(');
         return str.toString();*/
     }
-
     //5
+
     public static int SquareDigits(int n) {
         StringBuilder sb = new StringBuilder();
         int buf;
@@ -105,8 +105,8 @@ public class CodeWars {
     public static boolean isSquare(int n) {
         return Math.sqrt(n) % 1 == 0;
     }
-
     //10
+
     public static String spinWords(String sentence) {
         return Arrays.stream(sentence.split(" "))
                 .map(x -> x.length() > 4 ? new StringBuilder().append(x).reverse().toString() : x)
@@ -163,8 +163,8 @@ public class CodeWars {
                 .filter(x -> x instanceof Integer)
                 .toList();
     }
-
     //15
+
     public static boolean isIsogram(String str) {
         HashSet<Integer> chars = new HashSet<>();
 
@@ -207,8 +207,8 @@ public class CodeWars {
                 .get()
                 .length();
     }
-
     //20
+
     public static String accum(String s) {
         StringBuilder string = new StringBuilder();
         int i = 0;
@@ -275,8 +275,8 @@ public class CodeWars {
         });
         return sB.toString();
     }
-
     //25
+
     public static int GetSum(int a, int b) {
         return Stream.iterate(Math.min(a, b), n -> n + 1)
                 .limit(Math.abs(Math.max(a, b) - Math.min(a, b)) + 1)
@@ -299,21 +299,22 @@ public class CodeWars {
     }
 
     public static int persistence(long n) {
+      class pers{
+          static int pers(long n, int k) {
+              if (n < 10)
+                  return k;
+              k++;
+              List<Long> longs = new ArrayList<>();
+              do {
+                  longs.add(0, n % 10);
+                  n /= 10;
+              } while (n != 0);
+
+              return pers(longs.stream().reduce((x, y) -> x * y).get(), k);
+          }
+      }
         int k = 0;
-        return pers(n, k);
-    }
-
-    static int pers(long n, int k) {
-        if (n < 10)
-            return k;
-        k++;
-        List<Long> longs = new ArrayList<>();
-        do {
-            longs.add(0, n % 10);
-            n /= 10;
-        } while (n != 0);
-
-        return pers(longs.stream().reduce((x, y) -> x * y).get(), k);
+        return pers.pers(n, k);
     }
 
     public static boolean solution(String str, String ending) {
@@ -327,8 +328,8 @@ public class CodeWars {
         return "#".repeat(Math.max(0, str.length() - 4)) +
                 str.substring(Math.max(0, str.length() - 4));
     }
-
     //30
+
     static String toCamelCase(String s) {
         if (s.equals(""))
             return s;
@@ -371,8 +372,8 @@ public class CodeWars {
         }
         return i;
     }
-
     //35
+
     public static String longest(String s1, String s2) {
         return (s1 + s2).chars()
                 .distinct()
@@ -418,8 +419,8 @@ public class CodeWars {
         double pow = Math.pow(Math.sqrt(sq) + 1, 2);
         return (pow % 1 != 0) ? -1 : (long) pow;
     }
-
     //40
+
     public static boolean isNarcissistic(int number) {
         int pow = Integer.toString(number).length();
         return Integer.toString(number).chars()
@@ -511,21 +512,24 @@ public class CodeWars {
         return str.length() == 0 ? original : str;
     }
 
-    static String MorseCode(String st) {
-        return st;
-    }
+    public static String decode(String morseCode) {
+        class MorseCode {
+            static String get(String str) {
+                return str;
+            }
+        }
 
-    public String decode(String morseCode) {
         return Arrays.stream(morseCode.trim().split("   "))
                 .map(x -> Arrays.stream(x.split(" "))
-                        .map(x1->MorseCode(x1))
+                        .map(MorseCode::get)
                         .collect(Collectors.joining()))
                 .collect(Collectors.joining(" "));
     }
 
-    // 51/74
+    // 52/74
 
     public static void main(String[] str) {
-        reverseWords("    ");
+        Boolean tr = (int)5 ==(2.4+2.6);
+
     }
 }
