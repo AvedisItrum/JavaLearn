@@ -480,15 +480,27 @@ public class CodeWars {
                 if (val != v) {
                     return val;
                 }
-        return val != arr[2] ? val:arr[1];
+        return val != arr[2] ? val : arr[1];
     }
 
     public static int countPassengers(ArrayList<int[]> stops) {
-       return stops.stream().mapToInt(x->(x[0]-x[1])).sum();
+        return stops.stream().mapToInt(x -> (x[0] - x[1])).sum();
+    }
+
+    public static int findEvenIndex(int[] arr) {
+        int lS = 0;
+        int rS = Arrays.stream(arr).reduce(Integer::sum).getAsInt();
+        for (int i = 0; i < arr.length; i++) {
+            rS -= arr[i];
+            if (lS == rS)
+                return i;
+            lS += arr[i];
+        }
+        return -1;
     }
 
 
-    // 48/74
+    // 49/74
 
     public static void main(String[] str) {
     }
