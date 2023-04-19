@@ -421,13 +421,10 @@ public class CodeWars {
 
     public static boolean isNarcissistic(int number) {
         int pow = Integer.toString(number).length();
-        int bufNum = number;
-        int sum = 0;
-        while (bufNum != 0) {
-            sum += Math.pow(bufNum % 10, pow);
-            bufNum /= 10;
-        }
-        return sum == number;
+        return  Integer.toString(number).chars()
+                .mapToObj(x ->(int)Math.pow(Character.digit(x, 10),pow))
+                .reduce(Integer::sum)
+                .get() == number;
     }
 
     public double[] tribonacci(double[] s, int n) {
@@ -451,12 +448,23 @@ public class CodeWars {
             sB.append("_");
         String[] strs = new String[sB.length() / 2];
         for (int i = 0; i < sB.length(); i += 2)
-            strs[i / 2] = "" + sB.charAt(i) +  sB.charAt(i + 1);
+            strs[i / 2] = "" + sB.charAt(i) + sB.charAt(i + 1);
         return strs;
     }
+
+    public static long digPow(int n, int p) {
+        double sum = 0;
+        var v = Integer.toString(n).chars().mapToObj(x -> Character.digit(x, 10)).toList();
+        for(int i:v)
+            sum += Math.pow(i,p++);
+
+        double k = sum/n;
+        return (long) (k==(long)k?k:-1);
+    }
+
     // 44/74
 
     public static void main(String[] str) {
-
+        digPow(46288, 3);
     }
 }
