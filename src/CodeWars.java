@@ -1,7 +1,11 @@
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class CodeWars {
@@ -528,17 +532,37 @@ public class CodeWars {
     }
 
     public static boolean isPrime(int num) {
-        if(num<2)
+        if (num < 2)
             return false;
-        if(num == 2||num==3)
+        if (num == 2 || num == 3)
             return true;
         int sqrt = (int) Math.sqrt(num);
-        for (int i = 2;i<=sqrt+1; i++)
-            if(num%i==0)
+        for (int i = 2; i <= sqrt + 1; i++)
+            if (num % i == 0)
                 return false;
         return true;
     }
-    // 52/74
+
+    public static boolean comp(int[] a, int[] b) {
+        if (b == null)
+            return false;
+        List<Integer> lB = Arrays.stream(b).boxed().toList();
+        List<Integer> lA = new ArrayList<>(Arrays.stream(a).boxed().map(x -> x * x).toList());
+        for (Integer i : lB) {
+            if (!lA.contains(i))
+                return false;
+            lA.remove(i);
+        }
+        return true;
+    }
+
+    // 53/74
+    @Test
+    public void test1() {
+        int[] a = new int[]{121, 144, 19, 161, 19, 144, 19, 11};
+        int[] b = new int[]{121, 14641, 20736, 361, 25921, 361, 20736, 361};
+        assertEquals(true, comp(a, b));
+    }
 
     public static void main(String[] str) {
 
