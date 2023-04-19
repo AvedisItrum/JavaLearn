@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.*;
 
@@ -299,20 +300,20 @@ public class CodeWars {
     }
 
     public static int persistence(long n) {
-      class pers{
-          static int pers(long n, int k) {
-              if (n < 10)
-                  return k;
-              k++;
-              List<Long> longs = new ArrayList<>();
-              do {
-                  longs.add(0, n % 10);
-                  n /= 10;
-              } while (n != 0);
+        class pers {
+            static int pers(long n, int k) {
+                if (n < 10)
+                    return k;
+                k++;
+                List<Long> longs = new ArrayList<>();
+                do {
+                    longs.add(0, n % 10);
+                    n /= 10;
+                } while (n != 0);
 
-              return pers(longs.stream().reduce((x, y) -> x * y).get(), k);
-          }
-      }
+                return pers(longs.stream().reduce((x, y) -> x * y).get(), k);
+            }
+        }
         int k = 0;
         return pers.pers(n, k);
     }
@@ -526,10 +527,20 @@ public class CodeWars {
                 .collect(Collectors.joining(" "));
     }
 
+    public static boolean isPrime(int num) {
+        if(num<2)
+            return false;
+        if(num == 2||num==3)
+            return true;
+        int sqrt = (int) Math.sqrt(num);
+        for (int i = 2;i<=sqrt+1; i++)
+            if(num%i==0)
+                return false;
+        return true;
+    }
     // 52/74
 
     public static void main(String[] str) {
-        Boolean tr = (int)5 ==(2.4+2.6);
 
     }
 }
