@@ -419,10 +419,11 @@ public class CodeWars {
         return (pow % 1 != 0) ? -1 : (long) pow;
     }
 
+    //40
     public static boolean isNarcissistic(int number) {
         int pow = Integer.toString(number).length();
-        return  Integer.toString(number).chars()
-                .mapToObj(x ->(int)Math.pow(Character.digit(x, 10),pow))
+        return Integer.toString(number).chars()
+                .mapToObj(x -> (int) Math.pow(Character.digit(x, 10), pow))
                 .reduce(Integer::sum)
                 .get() == number;
     }
@@ -452,19 +453,28 @@ public class CodeWars {
         return strs;
     }
 
+    //19.04
     public static long digPow(int n, int p) {
         double sum = 0;
         var v = Integer.toString(n).chars().mapToObj(x -> Character.digit(x, 10)).toList();
-        for(int i:v)
-            sum += Math.pow(i,p++);
+        for (int i : v)
+            sum += Math.pow(i, p++);
 
-        double k = sum/n;
-        return (long) (k==(long)k?k:-1);
+        double k = sum / n;
+        return (long) (k == (long) k ? k : -1);
+    }
+    //45
+
+    public static int ConvertBinaryArrayToInt(List<Integer> binary) {
+        int sum = 0;
+        int s = binary.size();
+        for (int i = 0; i < s; i++)
+            sum += Math.pow(2,i) * binary.get(s-i-1);
+        return sum;
     }
 
-    // 44/74
+    // 45/74
 
     public static void main(String[] str) {
-        digPow(46288, 3);
     }
 }
