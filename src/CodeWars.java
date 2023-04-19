@@ -511,6 +511,18 @@ public class CodeWars {
         return str.length() == 0 ? original : str;
     }
 
+    static String MorseCode(String st) {
+        return st;
+    }
+
+    public String decode(String morseCode) {
+        return Arrays.stream(morseCode.trim().split("   "))
+                .map(x -> Arrays.stream(x.split(" "))
+                        .map(x1->MorseCode(x1))
+                        .collect(Collectors.joining()))
+                .collect(Collectors.joining(" "));
+    }
+
     // 51/74
 
     public static void main(String[] str) {
