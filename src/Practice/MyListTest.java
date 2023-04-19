@@ -4,12 +4,18 @@ import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyListTest {
 
     MyList<Integer> myInts = new MyList<>(new Integer[]{null, 0, 1, 2, 3, 4, null, 5, 6, null, null, null, 7, 8, null, null, null, 9, 10, 11, 12, null, 13, null});
+
+    @Test
+    void filterTest() {
+        assertArrayEquals(new Integer[]{0, 2, 4, 6, 8, 10, 12}, MyList.filter(myInts, integer -> integer % 2 == 0).toArray());
+    }
 
     @Test
     void testSize() {

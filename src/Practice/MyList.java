@@ -1,6 +1,7 @@
 package Practice;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.logging.Filter;
 
 
@@ -33,6 +34,10 @@ public class MyList<T> implements List<T> {
 
     public MyList() {
         this(-1, -1);
+    }
+
+    public static<T> Collection<T> filter (Collection<T> col, Predicate<T> pr){
+       return col.stream().filter(pr).toList();
     }
 
     @Override
@@ -169,7 +174,6 @@ public class MyList<T> implements List<T> {
         T[] t = (T[]) new Object[length + cellsCountToLeave];
         System.arraycopy(data, 0, t, 0, length);
     }
-
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
