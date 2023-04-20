@@ -1,4 +1,4 @@
-package Practice;
+package Practice.MyImplementations;
 
 public interface Removable {
     void remove(int i);

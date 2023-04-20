@@ -1,8 +1,7 @@
-package Practice;
+package Practice.MyImplementations;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.logging.Filter;
 
 
 public class MyList<T> implements List<T> {
@@ -10,6 +9,7 @@ public class MyList<T> implements List<T> {
     int length = 0;
     int sizeStep = 10;
     int initialSize = 10;
+
 
     public MyList(T[] t) {
         data = t;

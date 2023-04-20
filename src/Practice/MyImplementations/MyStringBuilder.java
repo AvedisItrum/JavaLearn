@@ -1,4 +1,4 @@
-package Practice;
+package Practice.MyImplementations;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -54,8 +54,8 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
     @Override
     public Appendable append(CharSequence csq, int start, int end) {
         undoAdd(csq.subSequence(start, end), true);
-        isFit(csq.length() + chars.length);
-        System.arraycopy(csq.toString().toCharArray(), start, chars, chars.length - csq.length(), end - start);
+        isFit(chars.length + (end - start));
+        System.arraycopy(csq.toString().toCharArray(), start, chars, chars.length - (end - start), end - start);
         return this;
     }
 
@@ -98,9 +98,9 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
     }
 
     @Override
-    public void remove(int i) {
-        undoAdd(this.subSequence(chars.length - i, chars.length), false);
-        chars = Arrays.copyOf(chars, chars.length - i);
+    public void remove(int amount) {
+        undoAdd(this.subSequence(Math.max(0, chars.length - amount), chars.length), false);
+        chars = Arrays.copyOf(chars, Math.max(0, chars.length - amount));
     }
 
     @Override

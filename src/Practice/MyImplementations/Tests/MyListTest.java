@@ -1,10 +1,10 @@
-package Practice;
+package Practice.MyImplementations.Tests;
 
+import Practice.MyImplementations.MyList;
 import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +19,7 @@ class MyListTest {
 
     @Test
     void testSize() {
-        assertEquals(14, myInts.length);
+        assertEquals(14, myInts.size());
     }
 
     @Test
@@ -45,13 +45,13 @@ class MyListTest {
     @Test
     void testAdd() {
         myInts.add(14);
-        assertEquals(14, (int) myInts.get(myInts.length - 1));
+        assertEquals(14, (int) myInts.get(myInts.size() - 1));
     }
 
     @Test
     void testRemove() {
         myInts.remove(14);
-        assertEquals(13, (int) myInts.get(myInts.length - 1));
+        assertEquals(13, (int) myInts.get(myInts.size()- 1));
 
     }
 
@@ -81,7 +81,7 @@ class MyListTest {
     @Test
     void testRetainAll() {
         myInts.retainAll(List.of(6));
-        assertEquals(1, myInts.length);
+        assertEquals(1, myInts.size());
     }
 
     @Test
@@ -128,6 +128,6 @@ class MyListTest {
     @Test
     void testClear() {
         myInts.clear();
-        assertEquals(0, myInts.length);
+        assertEquals(0, myInts.size());
     }
 }

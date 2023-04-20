@@ -1,4 +1,4 @@
-package Practice;
+package Practice.MyImplementations;
 
 public interface Undoable {
     void undo(int i);
