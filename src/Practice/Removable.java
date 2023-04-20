@@ -1,6 +1,6 @@
 package Practice;
 
-public interface Removeable {
+public interface Removable {
     void Remove(int i);
 
     void Remove();
