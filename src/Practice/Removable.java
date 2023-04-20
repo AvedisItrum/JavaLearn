@@ -1,7 +1,7 @@
 package Practice;
 
 public interface Removable {
-    void Remove(int i);
+    void remove(int i);
 
-    void Remove();
+    void remove();
 }

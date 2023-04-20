@@ -27,38 +27,38 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
         reUndoStorage = new Stack<>();
     }
 
-    public void UndoAdd(CharSequence cs, Boolean added) {
+    public void undoAdd(CharSequence cs, Boolean added) {
         undoStorage.push(new Action(cs, added));
         reUndoStorage.clear();
         if (undoStorage.size() > UndoCapacity)
             undoStorage.remove(undoStorage.size());
     }
 
-    public void Fitnes(int length) {
+    public void isFit(int length) {
         if (length > chars.length)
             chars = Arrays.copyOf(chars, length);
     }
 
     @Override
     public Appendable append(CharSequence csq) {
-        UndoAdd(csq, true);
-        Fitnes(csq.length() + chars.length);
+        undoAdd(csq, true);
+        isFit(csq.length() + chars.length);
         System.arraycopy(csq.toString().toCharArray(), 0, chars, chars.length - csq.length(), csq.length());
         return this;
     }
 
     @Override
     public Appendable append(CharSequence csq, int start, int end) {
-        UndoAdd(csq.subSequence(start, end), true);
-        Fitnes(csq.length() + chars.length);
+        undoAdd(csq.subSequence(start, end), true);
+        isFit(csq.length() + chars.length);
         System.arraycopy(csq.toString().toCharArray(), start, chars, chars.length - csq.length(), end - start);
         return this;
     }
 
     @Override
     public Appendable append(char c) {
-        UndoAdd(String.valueOf(c), true);
-        Fitnes(chars.length + 1);
+        undoAdd(String.valueOf(c), true);
+        isFit(chars.length + 1);
         System.arraycopy(new char[]{c}, 0, chars, chars.length - 1, 1);
         return this;
     }
@@ -94,18 +94,18 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
     }
 
     @Override
-    public void Remove(int i) {
-        UndoAdd(this.subSequence(chars.length - i, chars.length), false);
+    public void remove(int i) {
+        undoAdd(this.subSequence(chars.length - i, chars.length), false);
         chars = Arrays.copyOf(chars, chars.length - i);
     }
 
     @Override
-    public void Remove() {
-        Remove(1);
+    public void remove() {
+        remove(1);
     }
 
     @Override
-    public void Undo(int i) {
+    public void undo(int i) {
         for (int a = 0; a < i; a++) {
             if (undoStorage.isEmpty())
                 return;
@@ -114,7 +114,7 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
             if (act.added)
                 chars = Arrays.copyOf(chars, chars.length - act.cs.length());
             else {
-                Fitnes(act.cs.length() + chars.length);
+                isFit(act.cs.length() + chars.length);
                 System.arraycopy(act.cs.toString().toCharArray(), 0, chars, chars.length - act.cs.length(), act.cs.length());
             }
 
@@ -123,12 +123,12 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
     }
 
     @Override
-    public void Undo() {
-        Undo(1);
+    public void undo() {
+        undo(1);
     }
 
     @Override
-    public void ReUndo(int i) {
+    public void reUndo(int i) {
         for (int a = 0; a < i; a++) {
             if (reUndoStorage.isEmpty())
                 return;
@@ -137,7 +137,7 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
             if (!act.added)
                 chars = Arrays.copyOf(chars, chars.length - act.cs.length());
             else {
-                Fitnes(act.cs.length() + chars.length);
+                isFit(act.cs.length() + chars.length);
                 System.arraycopy(act.cs.toString().toCharArray(), 0, chars, chars.length - act.cs.length(), act.cs.length());
             }
 
@@ -145,8 +145,8 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
     }
 
     @Override
-    public void ReUndo() {
-        ReUndo(1);
+    public void reUndo() {
+        reUndo(1);
     }
 
     @Override

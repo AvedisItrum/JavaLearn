@@ -13,18 +13,18 @@ public class Tests {
         MyStringBuilder sB = new MyStringBuilder("123456789");
         sB.append("1");//1234567891
         sB.append("123");//1234567891123
-        sB.Undo();//1234567891
-        sB.Undo();//123456789
-        sB.ReUndo();//1234567891
-        sB.Undo();//123456789
-        sB.ReUndo();//1234567891
-        sB.ReUndo();//1234567891123
-        sB.Remove(3);//1234567891
-        sB.Remove(1);//123456789
-        sB.Undo();//1234567891
-        sB.Undo();//1234567891123
-        sB.ReUndo();//1234567891
-        sB.ReUndo();//123456789
+        sB.undo();//1234567891
+        sB.undo();//123456789
+        sB.reUndo();//1234567891
+        sB.undo();//123456789
+        sB.reUndo();//1234567891
+        sB.reUndo();//1234567891123
+        sB.remove(3);//1234567891
+        sB.remove(1);//123456789
+        sB.undo();//1234567891
+        sB.undo();//1234567891123
+        sB.reUndo();//1234567891
+        sB.reUndo();//123456789
 
         assertEquals("123456789",sB.toString());
     }

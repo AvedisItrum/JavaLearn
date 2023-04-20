@@ -1,11 +1,11 @@
 package Practice;
 
 public interface Undoable {
-    void Undo(int i);
+    void undo(int i);
 
-    void Undo();
+    void undo();
 
-    void ReUndo(int i);
+    void reUndo(int i);
 
-    void ReUndo();
+    void reUndo();
 }
