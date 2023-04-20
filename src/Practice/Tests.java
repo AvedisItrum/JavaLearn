@@ -23,10 +23,28 @@ public class Tests {
         sB.remove(1);//123456789
         sB.undo();//1234567891
         sB.undo();//1234567891123
-        sB.reUndo();//1234567891
-        sB.reUndo();//123456789
+        sB.undo();
+        sB.undo();
+        sB.undo();
+        sB.undo();
+        sB.undo();
+        sB.undo();
+        sB.undo();
+        sB.undo();
+        sB.remove(1);
+        sB.reUndo();
+        sB.reUndo();
+        sB.reUndo();
+        sB.reUndo();
+        sB.reUndo();
+        sB.reUndo();
+        sB.remove(1);
+        sB.reUndo();
+        sB.reUndo();
+        sB.reUndo();
 
-        assertEquals("123456789",sB.toString());
+
+        assertEquals("1234567",sB.toString());
     }
     @Test
     public void DistinctTest() {
