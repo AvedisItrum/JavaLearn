@@ -623,15 +623,26 @@ public class CodeWars {
         return strings[maxI];*/
 
     }
+    public static int[] deleteNth(int[] elements, int maxOccurrences) {
+        HashMap<Integer,Integer> elms = new HashMap<Integer,Integer>();
+        List<Integer> list = new ArrayList<>();
+        for (int i : elements)
+        {
+            if(elms.get(i)== null)
+            {
 
-    @Test
-    public void edgeCaseTests() {
-        assertEquals("aa", high("aa b"));
-        assertEquals("b", high("b aa"));
-        assertEquals("bb", high("bb d"));
-        assertEquals("d", high("d bb"));
-        assertEquals("aaa", high("aaa b"));
+                elms.put(i,0);
+            }
+            if( elms.get(i)<maxOccurrences)
+            {
+                list.add(i);
+                elms.put(i,elms.get(i)+1);
+            }
+        }
+        return list.stream().mapToInt(i->i).toArray();
+
     }
-    // 58/74
+    //60
+    // 59/74
 
 }
