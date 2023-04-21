@@ -12,27 +12,29 @@ public class FindPrimeAsync extends Thread {
     }
 
     private final int till;
-    volatile LinkedList<Integer> ints;
-    volatile boolean solve = true;
+    private volatile LinkedList<Integer> ints;
+    private volatile boolean solve = true;
 
+    public int getLength(){
+        solve = false;
+        int l =ints.size();
+        solve = true;
+        return l;
+    }
     @Override
     public void run() {
         ints = new LinkedList<>();
-        ints.add(Integer.valueOf(2));
-        ints.add(Integer.valueOf(3));
+        ints.push(Integer.valueOf(2));
+        ints.push(Integer.valueOf(3));
         int i = 5;
         while (i <= till) {
-            if (!solve)
-                continue;
             i++;
-            if (isPrime(i))
-                ints.add(i);
+            if (isPrime(i)) {
+                while (!solve) {
+                }
+                ints.push(i);
+            }
         }
-    }
-
-    @Override
-    public void interrupt() {
-        solve = !solve;
     }
 
     public static boolean isPrime(int num) {

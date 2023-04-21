@@ -22,20 +22,18 @@ public class MultyThreadTests {
 
         for (int i = 0; i < repeats; i++) {
             FindPrimeAsync fPA = new FindPrimeAsync(10_000_000);
+
             fPA.setDaemon(true);
             fPA.setPriority(Thread.MAX_PRIORITY);
             fPA.setName("Thr " + i);
+
             fPA.start();
 
             startTime = System.currentTimeMillis();
+
             while (fPA.isAlive()) {
-                fPA.join(500);
-
-                fPA.interrupt();
-                l = fPA.ints.size();
-                fPA.solve = true;
-
-                System.out.println(l + " elements within " + (System.currentTimeMillis() - startTime) + " milis. Name " + fPA.getName());
+                fPA.join(250);
+                System.out.println(fPA.getLength() + " elements within " + (System.currentTimeMillis() - startTime) + " milis. Name:" + fPA.getName());
             }
             System.out.println("Done");
             times.add((System.currentTimeMillis() - startTime));
@@ -43,8 +41,14 @@ public class MultyThreadTests {
         }
 
         System.out.println("AVG = " + times.stream().reduce(Long::sum).get() / times.size());
+
         //ArrayList 9878
+        //ArrayList with getLength() 9908
+
         //LinkedList.add 9906
+        //LinkedList.add with getLength() 9951
+
         //LinkedList.push 9940
+        //LinkedList.push with getLength() 9907
     }
 }
