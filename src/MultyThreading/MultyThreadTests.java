@@ -7,24 +7,24 @@ import java.awt.image.FilteredImageSource;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.logging.Filter;
 
 public class MultyThreadTests {
 
-    @Test
+
+@Test
     public void task() throws ExecutionException, InterruptedException {
         int l;
         long startTime;
         int repeats = 3;
-        List<Long> times = new ArrayList<>();
+        List<Long> times = new LinkedList<>();
 
         for (int i = 0; i < repeats; i++) {
-            FindPrimeAsync fPA = new FindPrimeAsync(10_000_000);
+            FindPrimeAsync fPA = new FindPrimeAsync(100_000_000);
 
-            fPA.setDaemon(true);
-            fPA.setPriority(Thread.MAX_PRIORITY);
             fPA.setName("Thr " + i);
 
             fPA.start();
@@ -32,7 +32,7 @@ public class MultyThreadTests {
             startTime = System.currentTimeMillis();
 
             while (fPA.isAlive()) {
-                fPA.join(250);
+                fPA.join(5000);
                 System.out.println(fPA.getLength() + " elements within " + (System.currentTimeMillis() - startTime) + " milis. Name:" + fPA.getName());
             }
             System.out.println("Done");
@@ -41,6 +41,9 @@ public class MultyThreadTests {
         }
 
         System.out.println("AVG = " + times.stream().reduce(Long::sum).get() / times.size());
+
+
+
 
         //ArrayList 9878
         //ArrayList with getLength() 9908
