@@ -556,10 +556,59 @@ public class CodeWars {
         return true;
     }
 
-    // 54/74
+    public static int[] sortArray(int[] array) {
+        List<Integer> oddInd = new ArrayList<>();
+        List<Integer> oddNums = new ArrayList<>();
 
+        for (int i = 0; i < array.length; i++)
+            if (array[i] % 2 != 0) {
+                oddNums.add(array[i]);
+                oddInd.add(i);
+            }
+        oddNums.sort(Integer::compare);
 
-    public static void main(String[] str) {
+        for (int i = 0; i < oddNums.size(); i++)
+            array[oddInd.get(i)] = oddNums.get(i);
 
+        return array;
     }
+    //55
+
+    public static String camelCase(String input) {
+        StringBuilder sb = new StringBuilder(input);
+        for (int i = 1; i < sb.length(); i++) {
+            if (String.valueOf(sb.charAt(i)).matches("[A-Z]")) {
+                sb.insert(i, " ");
+                i++;
+            }
+        }
+        return sb.toString();
+    }
+
+    public static char findMissingLetter(char[] array) {
+        for (int i = 0, cExp = array[0]; i < array.length; i++, cExp++)
+            if (array[i] != cExp)
+                return (char) cExp;
+        return ' ';
+    }
+
+    public static String[] towerBuilder(int nFloors) {
+        String[] tower = new String[nFloors];
+        for (int i = 0; i < nFloors; i++) {
+            tower[i] = "";
+            for (int j = 0; j < (nFloors - i) - 1; j++) {
+                tower[i] += " ";
+            }
+            for (int j = 0; j < i * 2 + 1; j++) {
+                tower[i] += "*";
+            }
+            for (int j = 0; j < (nFloors - i) - 1; j++) {
+                tower[i] += " ";
+            }
+
+        }
+        return tower;
+    }
+    // 58/74
+
 }
