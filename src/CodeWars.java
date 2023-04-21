@@ -609,6 +609,29 @@ public class CodeWars {
         }
         return tower;
     }
+
+    public static String high(String s) {
+        return Arrays.stream(s.split(" "))
+                .max(Comparator.comparingInt(a -> a.chars().map(x -> x - 96).sum())).get();
+       /* int[] sum = new int[strings.length];
+        int maxI = 0;
+        for (int i = 0; i < strings.length; i++) {
+            sum[i] = strings[i].chars().map(x -> x - 96).sum();
+            if (sum[i] > sum[maxI])
+                maxI = i;
+        }
+        return strings[maxI];*/
+
+    }
+
+    @Test
+    public void edgeCaseTests() {
+        assertEquals("aa", high("aa b"));
+        assertEquals("b", high("b aa"));
+        assertEquals("bb", high("bb d"));
+        assertEquals("d", high("d bb"));
+        assertEquals("aaa", high("aaa b"));
+    }
     // 58/74
 
 }
