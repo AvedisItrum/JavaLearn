@@ -4,44 +4,47 @@ import java.util.List;
 
 public class ListTest {
     public static void main(String[] a) {
-        List<Integer> ALTimes = new ArrayList<>();
-        List<Integer> LLTimes = new ArrayList<>();
+        List<Integer> ArrayTimes = new ArrayList<>();
+        List<Integer> LinkedTimes = new ArrayList<>();
 
         long startTime;
-
+        int i1 = 0, i2 = 0;
         for (int i = 0; i < 5; i++) {
-            ArrayList<Integer> AL = new ArrayList<>();
+          /*  ArrayList<Integer> AL = new ArrayList<>();
             startTime = System.currentTimeMillis();
-            for (int A = 0; A < 50_000_000; A++) {
-                AL.add(i * A);
+            for (int A = 0; A < 1_000_000; A++) {
+                AL.add((int) System.currentTimeMillis());
             }
-            ALTimes.add((int) (System.currentTimeMillis() - startTime));
-
+            ArrayTimes.add((int) (System.currentTimeMillis() - startTime));
+            i1 = AL.get(AL.size() / 2);*/
             LinkedList<Integer> LL = new LinkedList<>();
             startTime = System.currentTimeMillis();
-            for (int L = 0; L < 50_000_000; L++) {
-                LL.add(i * L);
+            for (int L = 0; L < 1_000_000; L++) {
+                LL.add(0,(int) System.currentTimeMillis());
             }
-            LLTimes.add((int) (System.currentTimeMillis() - startTime));
+
+            LinkedTimes.add((int) (System.currentTimeMillis() - startTime));
+            i2 = LL.get(LL.size() / 2);
+
         }
-        int AL_AVG = ALTimes.stream().reduce(Integer::sum).get() / ALTimes.size();
-        int LL_AVG = LLTimes.stream().reduce(Integer::sum).get() / LLTimes.size();
+       // int Array_AVG = ArrayTimes.stream().reduce(Integer::sum).get() / ArrayTimes.size();
+        int Linked_AVG = LinkedTimes.stream().reduce(Integer::sum).get() / LinkedTimes.size();
 
-        System.out.println("ArrayList AVG = " + AL_AVG);
-        System.out.println("LinkedList AVG = " + LL_AVG);
+    //   System.out.println("ArrayList AVG = " + Array_AVG + "   " + i1);
+        System.out.println("LinkedList AVG = " + Linked_AVG + "   " + i2);
 
-        System.out.println("Linked>Array = " + (float) LL_AVG/(float) AL_AVG * 100 + "%");
+     //   System.out.println("Linked>Array = " + (float) Linked_AVG / (float) Array_AVG * 100 + "%");
 
         /*
         Для 10 млн добавлений
         ArrayList AVG = 494 млс в среднем
         LinkedList AVG = 1100 млс в среднем
-        Разница 222.67206%
+        Linked>Array = 222.67206%
 
         Для 50 млн добавлений
-        ArrayList AVG = 2342
-        LinkedList AVG = 6917
-        33.85861%
+        ArrayList AVG = 3347
+        LinkedList AVG = 8287
+        Linked>Array = 247.59486%
 
 */
     }
