@@ -653,6 +653,17 @@ public class CodeWars {
         }
         return i;
     }
+
+    public static long findNb(long m) {
+        long n = 0;
+        long sum = 0;
+        while (sum<m)
+            sum += Math.pow(++n,3);
+        if(sum == m||sum == m - Long.MAX_VALUE)
+            return n;
+
+        return -1;
+    }
     //61/74
 
 }
