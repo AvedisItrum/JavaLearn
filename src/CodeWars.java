@@ -623,26 +623,36 @@ public class CodeWars {
         return strings[maxI];*/
 
     }
-    public static int[] deleteNth(int[] elements, int maxOccurrences) {
-        HashMap<Integer,Integer> elms = new HashMap<Integer,Integer>();
-        List<Integer> list = new ArrayList<>();
-        for (int i : elements)
-        {
-            if(elms.get(i)== null)
-            {
 
-                elms.put(i,0);
+    public static int[] deleteNth(int[] elements, int maxOccurrences) {
+        HashMap<Integer, Integer> elms = new HashMap<Integer, Integer>();
+        List<Integer> list = new ArrayList<>();
+        for (int i : elements) {
+            if (elms.get(i) == null) {
+
+                elms.put(i, 0);
             }
-            if( elms.get(i)<maxOccurrences)
-            {
+            if (elms.get(i) < maxOccurrences) {
                 list.add(i);
-                elms.put(i,elms.get(i)+1);
+                elms.put(i, elms.get(i) + 1);
             }
         }
-        return list.stream().mapToInt(i->i).toArray();
+        return list.stream().mapToInt(i -> i).toArray();
 
     }
     //60
-    // 59/74
+
+    public static int countSmileys(List<String> arr) {
+        // : ;   _ - ~   ) D
+        List<String> smiles = Arrays.asList(":)", ":D", ":-)", ":-D", ":~)", ":~D",
+                                            ";)", ";D", ";-)", ";-D", ";~)", ";~D");
+        int i = 0;
+        for (String str : arr) {
+            if (smiles.contains(str))
+                i++;
+        }
+        return i;
+    }
+    //61/74
 
 }
