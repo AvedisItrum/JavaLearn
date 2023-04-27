@@ -1,23 +1,16 @@
 package Practice;
 
-import javax.management.ObjectName;
 import java.util.*;
-import java.util.logging.Filter;
 
 
 public class StandAloneMethods {
-    static Collection Distinct(Collection collection) {
+    static Collection distinct(Collection collection) {
         return collection.stream().distinct().toList();
     }
 
     static HashMap<Object, Integer> mapper(Object[] objs) {
-        HashMap<Object, Integer> maps = new HashMap<>();
-        Arrays.stream(objs).forEach(x -> {
-            if (maps.containsKey(x))
-                maps.put(x, maps.get(x) + 1);
-            else
-                maps.put(x, 1);
-        });
-        return maps;
+        HashMap<Object, Integer> map = new HashMap<>();
+        Arrays.stream(objs).forEach(x -> map.put(x, map.getOrDefault(x, 0) + 1));
+        return map;
     }
 }

@@ -17,10 +17,10 @@ public class Tests {
         sB.append("123");//1234567891123
         sB.undo();//1234567891
         sB.undo();//123456789
-        sB.reUndo();//1234567891
+        sB.redo();//1234567891
         sB.undo();//123456789
-        sB.reUndo();//1234567891
-        sB.reUndo();//1234567891123
+        sB.redo();//1234567891
+        sB.redo();//1234567891123
         sB.remove(3);//1234567891
         sB.remove(1);//123456789
         sB.undo();//1234567891
@@ -34,16 +34,16 @@ public class Tests {
         sB.undo();
         sB.undo();
         sB.remove(1);
-        sB.reUndo();
-        sB.reUndo();
-        sB.reUndo();
-        sB.reUndo();
-        sB.reUndo();
-        sB.reUndo();
+        sB.redo();
+        sB.redo();
+        sB.redo();
+        sB.redo();
+        sB.redo();
+        sB.redo();
         sB.remove(1);
-        sB.reUndo();
-        sB.reUndo();
-        sB.reUndo();
+        sB.redo();
+        sB.redo();
+        sB.redo();
 
 
         assertEquals("1234567",sB.toString());
@@ -52,7 +52,7 @@ public class Tests {
     public void DistinctTest() {
         Integer[] ints = new Integer[]{};
         List<Integer> lI = List.of(0, 1, 2, 2, 3, 3, 3, 4, 4, 5);
-        StandAloneMethods.Distinct(lI);
+        StandAloneMethods.distinct(lI);
         assertArrayEquals(new Integer[]{1,2,3,4,5},lI.toArray(Integer[]::new));
     }
 

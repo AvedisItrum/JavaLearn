@@ -1,11 +1,11 @@
 package Practice.MyImplementations;
 
-public interface Undoable {
+public interface ChangesSavable {
     void undo(int i);
 
     void undo();
 
-    void reUndo(int i);
+    void redo(int i);
 
-    void reUndo();
+    void redo();
 }

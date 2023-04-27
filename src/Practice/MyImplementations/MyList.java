@@ -2,57 +2,52 @@ package Practice.MyImplementations;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 public class MyList<T> implements List<T> {
-    T[] data;
-    int length = 0;
-    int sizeStep = 10;
-    int initialSize = 10;
+    Object[] data;
+    int size = 0;
+    int GROW_STEP = 10;
+    static final int DEFAULT_INITIAL_SIZE = 10;
 
 
     public MyList(T[] t) {
         data = t;
-        length = data.length;
+        size = data.length;
         multiShrinkArray(0);
-
     }
 
     public MyList(int initialSize, int sizeStep) {
-        if (initialSize != -1)
-            this.initialSize = initialSize;
-        if (sizeStep != -1)
-            this.sizeStep = sizeStep;
-
-        data = (T[]) new Object[this.initialSize];
-
+        this.GROW_STEP = sizeStep;
+        data = new Object[initialSize];
     }
 
     public MyList(int initialSize) {
-        this(initialSize, -1);
+        data = new Object[initialSize];
     }
 
     public MyList() {
-        this(-1, -1);
+        data = new Object[DEFAULT_INITIAL_SIZE];
     }
 
-    public static<T> Collection<T> filter (Collection<T> col, Predicate<T> pr){
-       return col.stream().filter(pr).toList();
+    public static <T> Collection<T> filter(Collection<T> col, Predicate<T> pr) {
+        return col.stream().filter(pr).collect(Collectors.toList());
     }
 
     @Override
     public int size() {
-        return length < 0 ? Integer.MAX_VALUE : length;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return length == 0;
+        return size == 0;
     }
 
     @Override
     public boolean contains(Object o) {
-        for (T t : data)
+        for (Object t : data)
             if (t.equals(o))
                 return true;
         return false;
@@ -61,14 +56,14 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(Arrays.stream(data).filter(x -> x != null).toArray(), length);
+        return Arrays.copyOf(Arrays.stream(data).filter(Objects::nonNull).toArray(), size);
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
         if (a.length < data.length)
-            return (T1[]) Arrays.copyOf(data, length);
-        System.arraycopy(data, 0, a, 0, length);
+            return (T1[]) Arrays.copyOf(data, size);
+        System.arraycopy(data, 0, a, 0, size);
         for (int i = data.length; i < a.length; i++)
             a[i] = null;
         return a;
@@ -76,21 +71,21 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        if (length == data.length) {
-            expandArray(sizeStep);
+        if (size == data.length) {
+            expandArray(GROW_STEP);
         }
-        data[length] = t;
-        length++;
+        data[size] = t;
+        size++;
 
         return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < size; i++)
             if (o.equals(data[i])) {
                 singleShrinkArray(i);
-                length--;
+                size--;
                 return true;
             }
         return false;
@@ -107,8 +102,8 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        if (c.size() > data.length - length) {
-            expandArray(c.size() - (data.length - length) + sizeStep);
+        if (c.size() > data.length - size) {
+            expandArray(c.size() - (data.length - size) + GROW_STEP);
         }
         for (T t : c)
             add(t);
@@ -121,7 +116,7 @@ public class MyList<T> implements List<T> {
      * @param count Кол-во ячеек для дополнения
      * @return
      */
-    public boolean expandArray(int count) {
+    private boolean expandArray(int count) {
         if (count < 1)
             return false;
         T[] array = (T[]) new Object[data.length + count];
@@ -132,7 +127,7 @@ public class MyList<T> implements List<T> {
 
     public void singleShrinkArray(int index) {
         System.arraycopy(data, index + 1, data, index, data.length - 1 - index);
-        trimToSize(sizeStep);
+        trimToSize(GROW_STEP);
     }
 
     /**
@@ -158,35 +153,35 @@ public class MyList<T> implements List<T> {
         }
 
 
-        trimToSize(sizeStep);
+        trimToSize(GROW_STEP);
     }
 
     public void trimToSize(int cellsCountToLeave) {
         for (int i = 0; i < data.length; i++)
             if (data[i] == null) {
-                length = i;
+                size = i;
                 break;
             }
-        if (data.length - length < cellsCountToLeave) {
-            expandArray(cellsCountToLeave - (data.length - length));
+        if (data.length - size < cellsCountToLeave) {
+            expandArray(cellsCountToLeave - (data.length - size));
             return;
         }
-        T[] t = (T[]) new Object[length + cellsCountToLeave];
-        System.arraycopy(data, 0, t, 0, length);
+        T[] t = (T[]) new Object[size + cellsCountToLeave];
+        System.arraycopy(data, 0, t, 0, size);
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        if (index > length)
-            index = length;
+        if (index > size)
+            index = size;
 
         if (index + c.size() >= data.length)
-            expandArray(index + c.size() - data.length + sizeStep);
+            expandArray(index + c.size() - data.length + GROW_STEP);
 
-        System.arraycopy(data, index, data, index + c.size(), length - index);
+        System.arraycopy(data, index, data, index + c.size(), size - index);
 
         System.arraycopy(c.toArray(), 0, data, index, c.size());
-        length += c.size();
+        size += c.size();
         return true;
     }
 
@@ -198,7 +193,7 @@ public class MyList<T> implements List<T> {
                 if (first == 0)
                     first = i;
                 data[i] = null;
-                length--;
+                size--;
             }
         multiShrinkArray(first);
         return true;
@@ -209,7 +204,7 @@ public class MyList<T> implements List<T> {
 
         for (int i = 0; i < data.length; i++)
             if (data[i] != null && !c.contains(data[i])) {
-                length--;
+                size--;
                 data[i] = null;
             }
 
@@ -219,53 +214,59 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void clear() {
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < size; i++) {
             data[i] = null;
         }
-        length = 0;
-        trimToSize(sizeStep);
+        size = 0;
+        trimToSize(GROW_STEP);
+    }
+
+    @SuppressWarnings("unchecked")
+    private T dataToValue(Object o){
+        return (T)o;
     }
 
     @Override
     public T get(int index) {
-        return data[index];
+        return dataToValue(data[index]);
     }
 
     @Override
     public T set(int index, T element) {
         if (index >= data.length)
-            expandArray(index - (data.length - 1) + sizeStep);
+            expandArray(index - (data.length - 1) + GROW_STEP);
         data[index] = element;
-        return data[index];
+        return dataToValue(data[index]);
     }
 
     @Override
     public void add(int index, T element) {
-        if (data.length == length)
-            expandArray(sizeStep);
-        if (index >= length)
-            index = length;
+        if (data.length == size)
+            expandArray(GROW_STEP);
+        if (index >= size)
+            index = size;
+        //!!!!!!!!
         else
-            System.arraycopy(data, index, data, index + 1, length - index);
+            System.arraycopy(data, index, data, index + 1, size - index);
 
         data[index] = element;
-        length++;
+        size++;
     }
 
     @Override
     public T remove(int index) {
         if (index < 0 || index >= data.length)
             return null;
-        T t = data[index];
+        T t = dataToValue(data[index]);
         data[index] = null;
-        length--;
+        size--;
         singleShrinkArray(index);
         return t;
     }
 
     @Override
     public int indexOf(Object o) {
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < size; i++)
             if (data[i].equals(o))
                 return i;
         return -1;
@@ -273,17 +274,18 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        for (int i = length - 1; i >= 0; i--)
+        for (int i = size - 1; i >= 0; i--)
             if (data[i].equals(o))
                 return i;
         return -1;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        List<T> t = new ArrayList<>(toIndex - fromIndex);
+        List<Object> t = new ArrayList<>(toIndex - fromIndex);
         t.addAll(Arrays.asList(data).subList(fromIndex, toIndex));
-        return t;
+        return (List<T>) t;
     }
 
     @Override
@@ -305,7 +307,7 @@ public class MyList<T> implements List<T> {
             public T next() {
                 if (modCount != data.length)
                     throw new ConcurrentModificationException();
-                return data[++currentIndex];
+                return dataToValue(data[++currentIndex]);
             }
 
             @Override
@@ -344,7 +346,7 @@ public class MyList<T> implements List<T> {
                 if (modCount != data.length)
                     throw new ConcurrentModificationException();
                 canModify = true;
-                return data[++currentIndex];
+                return dataToValue(data[++currentIndex]);
             }
 
             @Override
@@ -359,7 +361,7 @@ public class MyList<T> implements List<T> {
                 if (modCount != data.length)
                     throw new ConcurrentModificationException();
                 canModify = true;
-                return data[--currentIndex];
+                return dataToValue(data[--currentIndex]);
             }
 
             @Override

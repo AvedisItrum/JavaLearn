@@ -3,10 +3,10 @@ package Practice.MyImplementations;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class MyStringBuilder implements Appendable, CharSequence, Undoable, Removable {
+public class MyStringBuilder implements Appendable, CharSequence, ChangesSavable, Removable {
 
 
-    static class Action {
+    private static class Action {
         public CharSequence cs;
         public Boolean added;
 
@@ -131,7 +131,7 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
     }
 
     @Override
-    public void reUndo(int i) {
+    public void redo(int i) {
         for (int a = 0; a < i; a++) {
             if (undoStorage.isEmpty() || undoIndex < 0)
                 return;
@@ -149,8 +149,8 @@ public class MyStringBuilder implements Appendable, CharSequence, Undoable, Remo
     }
 
     @Override
-    public void reUndo() {
-        reUndo(1);
+    public void redo() {
+        redo(1);
     }
 
     @Override
