@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -688,7 +689,7 @@ public class CodeWars {
 
     public static int[] minMax(int[] arr) {
         int[] ret = new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE};
-        for (int i : arr){
+        for (int i : arr) {
             if (i < ret[0])
                 ret[0] = i;
             if (i > ret[1])
@@ -697,6 +698,51 @@ public class CodeWars {
 
         return ret;
     }
-    //63/74
 
+    //65
+    public static String[] inArray(String[] array1, String[] array2) {
+        return Arrays.stream(array1).filter(x -> {
+            for (String s : array2)
+                if (s.contains(x))
+                    return true;
+            return false;
+        }).sorted().toList().toArray(new String[0]);
+    }
+
+    public static String longestConsec(String[] strarr, int k) {
+        if (strarr.length == 0 || k <= 0 || k > strarr.length)
+            return "";
+        int g = 0;
+        int gLength=0;
+        for (int i = 0; i <= strarr.length - k; i++) {
+            int length = 0;
+            for (int j = 0; j < k; j++)
+                length += strarr[i+j].length();
+            if(length>gLength){
+                g = i;
+                gLength = length;
+            }
+        }
+        StringBuilder str = new StringBuilder();
+        for (int j = 0; j < k; j++)
+            str.append(strarr[g + j]);
+        return str.toString();
+    }
+    private static void testing(String actual, String expected) {
+        assertEquals(expected, actual);
+    }
+    @Test
+    public void test() {
+        System.out.println("longestConsec Fixed Tests");
+        testing(longestConsec(new String[] {"zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"}, 2), "abigailtheta");
+        testing(longestConsec(new String[] {"ejjjjmmtthh", "zxxuueeg", "aanlljrrrxx", "dqqqaaabbb", "oocccffuucccjjjkkkjyyyeehh"}, 1), "oocccffuucccjjjkkkjyyyeehh");
+        testing(longestConsec(new String[] {}, 3), "");
+        testing(longestConsec(new String[] {"itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck"}, 2), "wkppqsztdkmvcuwvereiupccauycnjutlvvweqilsfytihvrzlaodfixoyxvyuyvgpck");
+        testing(longestConsec(new String[] {"wlwsasphmxx","owiaxujylentrklctozmymu","wpgozvxxiu"}, 2), "wlwsasphmxxowiaxujylentrklctozmymu");
+        testing(longestConsec(new String[] {"zone", "abigail", "theta", "form", "libe", "zas"}, -2), "");
+        testing(longestConsec(new String[] {"it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"}, 3), "ixoyx3452zzzzzzzzzzzz");
+        testing(longestConsec(new String[] {"it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"}, 15), "");
+        testing(longestConsec(new String[] {"it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"}, 0), "");
+    }
+    //66/74
 }
