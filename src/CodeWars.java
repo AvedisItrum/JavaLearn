@@ -664,6 +664,14 @@ public class CodeWars {
 
         return -1;
     }
-    //61/74
+
+    public static String seriesSum(int n) {
+        double d = 0;
+        for (int i = 0;i<n; i++)
+            d += 1.0/(1+i*3);
+
+        return  String.format("%.3f",d);
+    }
+    //62/74
 
 }
