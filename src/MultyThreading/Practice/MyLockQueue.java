@@ -1,8 +1,13 @@
 package MultyThreading.Practice;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import jdk.jshell.spi.ExecutionControl;
 
-public class MyLockQueue {
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+
+public class MyLockQueue implements Lock {
 
     /**
      * Время, в млс, на которое поток будет засыпать
@@ -26,19 +31,85 @@ public class MyLockQueue {
     /**
      * Lock/Unlock происходит по принципу First In - First Out
      */
-    int lock() {
+    @Override
+    public void lock() {
         int index = _threadNumber.getAndIncrement();
         while (_threadIterator.get() != index) {
             try {
                 Thread.sleep(SLEEP_TIME);
             } catch (InterruptedException e) {
+                _threadNumber.decrementAndGet();
                 throw new RuntimeException(e);
             }
         }
-        return index;
     }
 
-    void unlock() {
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
+        }
+        int index = _threadNumber.getAndIncrement();
+        while (_threadIterator.get() != index) {
+            if (Thread.interrupted()) {
+                _threadNumber.decrementAndGet();
+                throw new InterruptedException();
+            }
+            try {
+                Thread.sleep(SLEEP_TIME);
+            } catch (InterruptedException e) {
+                _threadNumber.decrementAndGet();
+                throw new InterruptedException();
+            }
+        }
+    }
+
+    @Override
+    public boolean tryLock() {
+        if (_threadNumber.get() == _threadIterator.get()) {
+            _threadNumber.incrementAndGet();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
+        }
+        time = unit.toMillis(time);
+        long startTime = System.currentTimeMillis();
+        _threadNumber.incrementAndGet();
+
+        while (System.currentTimeMillis()-startTime<time)
+        {
+            if (_threadNumber.get() == _threadIterator.get()) {
+                return true;
+            }
+            try {
+                Thread.sleep(SLEEP_TIME);
+            } catch (InterruptedException e) {
+                _threadNumber.decrementAndGet();
+                throw new InterruptedException();
+            }
+        }
+        _threadNumber.decrementAndGet();
+        return false;
+    }
+
+    @Override
+    public void unlock() {
         _threadIterator.incrementAndGet();
+    }
+
+    @Override
+    public Condition newCondition() {
+        try {
+            throw new ExecutionControl.NotImplementedException("Not Implemented");
+        } catch (ExecutionControl.NotImplementedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
