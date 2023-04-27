@@ -645,7 +645,7 @@ public class CodeWars {
     public static int countSmileys(List<String> arr) {
         // : ;   _ - ~   ) D
         List<String> smiles = Arrays.asList(":)", ":D", ":-)", ":-D", ":~)", ":~D",
-                                            ";)", ";D", ";-)", ";-D", ";~)", ";~D");
+                ";)", ";D", ";-)", ";-D", ";~)", ";~D");
         int i = 0;
         for (String str : arr) {
             if (smiles.contains(str))
@@ -657,9 +657,9 @@ public class CodeWars {
     public static long findNb(long m) {
         long n = 0;
         long sum = 0;
-        while (sum<m)
-            sum += Math.pow(++n,3);
-        if(sum == m||sum == m - Long.MAX_VALUE)
+        while (sum < m)
+            sum += Math.pow(++n, 3);
+        if (sum == m || sum == m - Long.MAX_VALUE)
             return n;
 
         return -1;
@@ -667,11 +667,26 @@ public class CodeWars {
 
     public static String seriesSum(int n) {
         double d = 0;
-        for (int i = 0;i<n; i++)
-            d += 1.0/(1+i*3);
+        for (int i = 0; i < n; i++)
+            d += 1.0 / (1 + i * 3);
 
-        return  String.format("%.3f",d);
+        return String.format("%.3f", d);
     }
-    //62/74
+
+    public static int bouncingBall(double h, double bounce, double window) {
+        if (h <= 0 || bounce <= 0 || bounce >= 1 || window >= h)
+            return -1;
+
+        int i = 0;
+        while (h>window)
+        {
+            i+=2;
+            h*=bounce;
+        }
+
+        return --i;
+    }
+
+    //63/74
 
 }
