@@ -678,15 +678,25 @@ public class CodeWars {
             return -1;
 
         int i = 0;
-        while (h>window)
-        {
-            i+=2;
-            h*=bounce;
+        while (h > window) {
+            i += 2;
+            h *= bounce;
         }
 
         return --i;
     }
 
+    public static int[] minMax(int[] arr) {
+        int[] ret = new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE};
+        for (int i : arr){
+            if (i < ret[0])
+                ret[0] = i;
+            if (i > ret[1])
+                ret[1] = i;
+        }
+
+        return ret;
+    }
     //63/74
 
 }
