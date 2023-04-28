@@ -778,5 +778,17 @@ public class CodeWars {
         return k;
     }
 
-    //71/74
+    public static String[] wave(String str) {
+        List<String> strs = new ArrayList<>();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c == ' ')
+                continue;
+            StringBuilder copy = new StringBuilder(str);
+            copy.replace(i, i + 1, Character.toString(c).toUpperCase());
+            strs.add(copy.toString());
+        }
+        return strs.toArray(new String[0]);
+    }
+//72/74
 }
