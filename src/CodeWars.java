@@ -790,5 +790,12 @@ public class CodeWars {
         }
         return strs.toArray(new String[0]);
     }
-//72/74
+
+    public static List<String> number(List<String> lines) {
+        List<String> str = new ArrayList<>();
+        for (int i =0;i<lines.size();i++)
+            str.add(i+1 + ": "+lines.get(i));
+       return str;
+    }
+//73/74
 }
