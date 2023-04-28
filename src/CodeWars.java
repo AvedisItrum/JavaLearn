@@ -748,14 +748,16 @@ public class CodeWars {
 
     }
 
-    @Test
-    public void testValid() {
-        assertEquals(true, isValid(")(}{]["));
+    public static String expandedForm(int num) {
+        String str = String.valueOf(num);
+        StringBuilder answ = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '0')
+                continue;
+            answ.append(str.charAt(i) + "0".repeat(str.length() - i - 1) + " + ");
+        }
+        answ.delete(answ.length() - 3, answ.length());
+        return answ.toString();
     }
-
-    @Test
-    public void testInvalid() {
-        assertEquals(false, isValid("[(])"));
-    }
-    //67/74
+    //68/74
 }
