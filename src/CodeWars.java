@@ -793,9 +793,19 @@ public class CodeWars {
 
     public static List<String> number(List<String> lines) {
         List<String> str = new ArrayList<>();
-        for (int i =0;i<lines.size();i++)
-            str.add(i+1 + ": "+lines.get(i));
-       return str;
+        for (int i = 0; i < lines.size(); i++)
+            str.add(i + 1 + ": " + lines.get(i));
+        return str;
+    }
+
+    static int stray(int[] numbers) {
+        
+        if (numbers[0] != numbers[1])
+            return (numbers[0] == numbers[2])?numbers[1]:numbers[0];
+        for(int i = 2;i<numbers.length;i++)
+            if(numbers[0]!=numbers[i])
+                return numbers[i];
+        return -1;
     }
 //73/74
 }
