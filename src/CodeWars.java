@@ -763,10 +763,20 @@ public class CodeWars {
     public static int[] twoSum(int[] numbers, int target) {
         for (int i = 0; i < numbers.length; i++)
             for (int j = i + 1; j < numbers.length; j++)
-                if(numbers[i]+numbers[j] ==target)
-                    return new int[]{i,j};
+                if (numbers[i] + numbers[j] == target)
+                    return new int[]{i, j};
         return null;
     }
     //70
-    //69/74
+
+    public long numberOfDivisors(int n) {
+        int k = 1;
+        for (float i = 0; i <= n / 2.f; i++)
+            //if(Double.compare(n/i,(int)(n/i))==0)
+            if (n % i == 0)
+                k++;
+        return k;
+    }
+
+    //71/74
 }
