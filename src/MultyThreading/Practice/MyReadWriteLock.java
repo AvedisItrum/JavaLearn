@@ -8,7 +8,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.stream.Collectors;
 
-public class MyReadWriteLock {
+public class MyReadWriteLock /*implements ReadWriteLock*/ {
     private File file = new File("MyReadWriteLock.txt");
 
     private AtomicBoolean isReading = new AtomicBoolean(false);

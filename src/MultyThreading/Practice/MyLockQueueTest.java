@@ -7,7 +7,7 @@ public class MyLockQueueTest{
 
 
     public static void main(String[] args) {
-        MyLockQueue lock = new MyLockQueue(10);
+        MyQueueLock lock = new MyQueueLock(10);
         ExecutorService eS = Executors.newFixedThreadPool(100);
 
         for (int i = 0; i < 100; i++) {

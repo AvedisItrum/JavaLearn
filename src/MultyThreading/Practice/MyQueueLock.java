@@ -7,8 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
-public class MyLockQueue implements Lock {
-
+public class MyQueueLock implements Lock {
     /**
      * Время, в млс, на которое поток будет засыпать
      */
@@ -24,7 +23,7 @@ public class MyLockQueue implements Lock {
      */
     private final AtomicInteger _threadNumber = new AtomicInteger(0);
 
-    public MyLockQueue(int SleepTime) {
+    public MyQueueLock(int SleepTime) {
         SLEEP_TIME = SleepTime;
     }
 
