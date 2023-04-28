@@ -713,12 +713,12 @@ public class CodeWars {
         if (strarr.length == 0 || k <= 0 || k > strarr.length)
             return "";
         int g = 0;
-        int gLength=0;
+        int gLength = 0;
         for (int i = 0; i <= strarr.length - k; i++) {
             int length = 0;
             for (int j = 0; j < k; j++)
-                length += strarr[i+j].length();
-            if(length>gLength){
+                length += strarr[i + j].length();
+            if (length > gLength) {
                 g = i;
                 gLength = length;
             }
@@ -729,6 +729,33 @@ public class CodeWars {
         return str.toString();
     }
 
+    public boolean isValid(String braces) {
+        // () - s {} -f []-b
+        List<Character> open = Arrays.asList('(', '{', '[');
+        List<Character> close = Arrays.asList(')', '}', ']');
 
+        StringBuilder str = new StringBuilder(braces);
+
+        for (int i = 0; i < str.length(); i++) {
+            if (close.contains(str.charAt(i))) {
+                if (i == 0 || open.indexOf(str.charAt(i - 1)) != close.indexOf(str.charAt(i)))
+                    return false;
+                str.delete(i - 1, i + 1);
+                i -= 2;
+            }
+        }
+        return str.length() == 0;
+
+    }
+
+    @Test
+    public void testValid() {
+        assertEquals(true, isValid(")(}{]["));
+    }
+
+    @Test
+    public void testInvalid() {
+        assertEquals(false, isValid("[(])"));
+    }
     //67/74
 }
