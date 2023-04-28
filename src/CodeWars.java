@@ -759,5 +759,14 @@ public class CodeWars {
         answ.delete(answ.length() - 3, answ.length());
         return answ.toString();
     }
-    //68/74
+
+    public static int[] twoSum(int[] numbers, int target) {
+        for (int i = 0; i < numbers.length; i++)
+            for (int j = i + 1; j < numbers.length; j++)
+                if(numbers[i]+numbers[j] ==target)
+                    return new int[]{i,j};
+        return null;
+    }
+    //70
+    //69/74
 }
